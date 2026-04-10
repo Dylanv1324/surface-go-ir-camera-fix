@@ -1,0 +1,11 @@
+*.o
+*.ko
+*.ko.zst
+*.mod
+*.mod.c
+*.order
+*.symvers
+.module-common.o
+.tmp_versions/
+ipu-bridge-build/ipu-bridge.c
+ir-bridge

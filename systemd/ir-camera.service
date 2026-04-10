@@ -1,0 +1,15 @@
+[Unit]
+Description=IR Camera Bridge (IPU3 Y10 to v4l2loopback)
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStartPre=/usr/bin/modprobe v4l2loopback video_nr=20 card_label="IR Camera" exclusive_caps=1
+ExecStartPre=/usr/bin/bash -c 'sleep 2 && /usr/bin/v4l2-ctl -d /dev/v4l-subdev6 --set-ctrl=exposure=1450,analogue_gain=650'
+ExecStartPre=/usr/bin/bash -c 'echo 1 > /sys/devices/pci0000:00/INT3472:02/leds/INT33BE_00::privacy_led/brightness'
+ExecStart=/usr/local/bin/ir-bridge /dev/video2 /dev/video20
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
